@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özür Dilerim Canım</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .question {
+            margin: 30px 0;
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .button-container {
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 0.9em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            position: absolute;
+            transition: all 0.2s ease;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            min-width: fit-content;
+        }
+
+        .success-message {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* --- KAPLUMBAĞA GÖRSELİ İÇİN YENİ STİL --- */
+        .success-image {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite; /* Kalp gibi atma efekti */
+        }
+
+        .success-message h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .hearts {
+            font-size: 3em;
+            margin: 10px 0;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="questionSection">
+            <div class="header">
+                <h1>Aşkım Pelin Günaydın'a</h1>
+            </div>
+            <div class="question">
+                Ahmet hakkında hangi ifade doğrudur?
+            </div>
+
+            <div class="button-container">
+                <button class="btn btn-yes" onclick="selectYes()">
+                    1) Ahmet bir öküz olduğu için sevgilisini çok üzüyor ama Pelin'e çok aşık
+                </button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="moveButton()">
+                    2) Ahmet hem öküz hem umursamaz hem mal hem bok
+                </button>
+            </div>
+        </div>
+
+        <div id="successSection" class="success-message">
+            <img src="Kaplumbağa.jfif" alt="Mutlu Kaplumbağa" class="success-image">
+            <div class="hearts">💕💕💕</div>
+            <h2>Seni Üzdüğüm Her An İçin Özür Dilerim</h2>
+            <div class="hearts">❤️</div>
+            <p>Seni çok seviyorum</p>
+        </div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.querySelector('.button-container');
+            
+            if (!btn.dataset.widthSet) {
+                const computedStyle = window.getComputedStyle(btn);
+                btn.style.width = computedStyle.width;
+                btn.style.height = computedStyle.height;
+                btn.dataset.widthSet = 'true';
+            }
+            
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width - 20;
+            const maxY = containerRect.height - btnRect.height - 20;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transform = 'none';
+        }
+
+        function selectYes() {
+            document.getElementById('questionSection').classList.add('hidden');
+            document.getElementById('successSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
